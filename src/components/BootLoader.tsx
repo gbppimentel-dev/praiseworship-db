@@ -29,7 +29,7 @@ export default function BootLoader({ exiting = false }: BootLoaderProps) {
           </p>
 
           <p className="mt-2 text-sm text-[#5d6658]">
-            Preparing your worship workspace...
+            preparing your worship workspace...
           </p>
         </div>
       </div>
