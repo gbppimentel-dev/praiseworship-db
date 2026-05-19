@@ -54,7 +54,7 @@ export default function CardNav({
   const [isExpanded, setIsExpanded] = useState(false)
   const navRef = useRef<HTMLElement | null>(null)
   const cardsRef = useRef<HTMLDivElement[]>([])
-  const tlRef = useRef<GSAPTimeline | null>(null)
+  const tlRef = useRef<gsap.core.Timeline | null>(null)
 
   const calculateHeight = () => {
     const navEl = navRef.current
@@ -124,7 +124,6 @@ export default function CardNav({
       tl?.kill()
       tlRef.current = null
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ease, items])
 
   useLayoutEffect(() => {
@@ -144,20 +143,28 @@ export default function CardNav({
       } else {
         tlRef.current.kill()
         const newTl = createTimeline()
-        if (newTl) tlRef.current = newTl
+        if (newTl) {
+          tlRef.current = newTl
+        }
       }
     }
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExpanded])
 
   const closeMenu = () => {
+    const tl = tlRef.current
+
+    if (tl && isExpanded) {
+      setIsHamburgerOpen(false)
+      tl.eventCallback('onReverseComplete', () => setIsExpanded(false))
+      tl.reverse()
+      return
+    }
+
     setIsHamburgerOpen(false)
     setIsExpanded(false)
-    tlRef.current?.pause(0)
-    gsap.set(navRef.current, { height: 60 })
   }
 
   const toggleMenu = () => {
@@ -169,9 +176,7 @@ export default function CardNav({
       setIsExpanded(true)
       tl.play(0)
     } else {
-      setIsHamburgerOpen(false)
-      tl.eventCallback('onReverseComplete', () => setIsExpanded(false))
-      tl.reverse()
+      closeMenu()
     }
   }
 
@@ -192,7 +197,11 @@ export default function CardNav({
 
   return (
     <div className={`card-nav-container ${className}`}>
-      <nav ref={navRef} className={`card-nav ${isExpanded ? 'open' : ''}`} style={{ backgroundColor: baseColor }}>
+      <nav
+        ref={navRef}
+        className={`card-nav ${isExpanded ? 'open' : ''}`}
+        style={{ backgroundColor: baseColor }}
+      >
         <div className="card-nav-top">
           <div
             className={`hamburger-menu ${isHamburgerOpen ? 'open' : ''}`}
@@ -206,8 +215,17 @@ export default function CardNav({
             <div className="hamburger-line" />
           </div>
 
-          <button type="button" className="logo-container" onClick={handleLogoClick} aria-label={logoAlt}>
-            {logo ? <img src={logo} alt={logoAlt} className="logo" /> : <span className="logo-text">{logoText}</span>}
+          <button
+            type="button"
+            className="logo-container"
+            onClick={handleLogoClick}
+            aria-label={logoAlt}
+          >
+            {logo ? (
+              <img src={logo} alt={logoAlt} className="logo" />
+            ) : (
+              <span className="logo-text">{logoText}</span>
+            )}
           </button>
 
           <button

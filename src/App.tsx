@@ -77,21 +77,30 @@ function AppShell() {
 
 export default function App() {
   const [isBooting, setIsBooting] = useState(true)
+  const [isExiting, setIsExiting] = useState(false)
 
   useEffect(() => {
     const min = 2000
     const max = 4000
-    const delay = Math.floor(Math.random() * (max - min + 1)) + min
+    const totalDelay = Math.floor(Math.random() * (max - min + 1)) + min
+    const fadeTime = 500
 
-    const timer = window.setTimeout(() => {
+    const fadeTimer = window.setTimeout(() => {
+      setIsExiting(true)
+    }, totalDelay - fadeTime)
+
+    const hideTimer = window.setTimeout(() => {
       setIsBooting(false)
-    }, delay)
+    }, totalDelay)
 
-    return () => window.clearTimeout(timer)
+    return () => {
+      window.clearTimeout(fadeTimer)
+      window.clearTimeout(hideTimer)
+    }
   }, [])
 
   if (isBooting) {
-    return <BootLoader />
+    return <BootLoader exiting={isExiting} />
   }
 
   return (

@@ -1,8 +1,17 @@
 import { ScaleLoader } from 'react-spinners'
 
-export default function BootLoader() {
+type BootLoaderProps = {
+  exiting?: boolean
+}
+
+export default function BootLoader({ exiting = false }: BootLoaderProps) {
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-white">
+    <div
+      className={[
+        'fixed inset-0 z-[999] flex items-center justify-center bg-white transition-all duration-500 ease-out',
+        exiting ? 'opacity-0 blur-sm scale-[1.01]' : 'opacity-100',
+      ].join(' ')}
+    >
       <div className="flex flex-col items-center gap-6">
         <ScaleLoader
           color="#111827"
@@ -17,9 +26,8 @@ export default function BootLoader() {
           <p className="text-2xl font-semibold tracking-tight text-slate-900">
             Loading PraiseDB
           </p>
-
           <p className="mt-2 text-sm text-slate-500">
-            Preparing your worship workspace...
+            preparing your worship workspace...
           </p>
         </div>
       </div>
