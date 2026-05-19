@@ -244,7 +244,7 @@ export default function CardNav({
               key={`${item.label}-${idx}`}
               className="nav-card"
               ref={setCardRef(idx)}
-              style={{ backgroundColor: item.bgColor, color: item.textColor }}
+              style={{ background: item.bgColor, color: item.textColor }}
             >
               <div className="nav-card-label">{item.label}</div>
               <div className="nav-card-links">

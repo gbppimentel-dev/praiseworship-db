@@ -17,8 +17,9 @@ function AppShell() {
   const items = [
     {
       label: 'Songs',
-      bgColor: '#1B1722',
-      textColor: '#fff',
+      bgColor:
+        'linear-gradient(135deg, rgba(17,17,17,0.96) 0%, rgba(31,35,28,0.92) 55%, rgba(47,125,50,0.78) 100%)',
+      textColor: '#ffffff',
       links: [
         { label: 'Browse Songs', ariaLabel: 'Browse Songs', href: '/songs/browse' },
         { label: 'Add New Song', ariaLabel: 'Add New Song', href: '/songs/new' },
@@ -26,8 +27,9 @@ function AppShell() {
     },
     {
       label: 'Worship Leaders',
-      bgColor: '#2F293A',
-      textColor: '#fff',
+      bgColor:
+        'linear-gradient(135deg, rgba(47,125,50,0.92) 0%, rgba(91,171,61,0.72) 55%, rgba(123,209,43,0.45) 100%)',
+      textColor: '#ffffff',
       links: [
         { label: 'Browse Leaders', ariaLabel: 'Browse Leaders', href: '/leaders/browse' },
         { label: 'Add New Leader', ariaLabel: 'Add New Leader', href: '/leaders/new' },
@@ -35,22 +37,23 @@ function AppShell() {
     },
     {
       label: 'Archive',
-      bgColor: '#2F293A',
-      textColor: '#fff',
+      bgColor:
+        'linear-gradient(135deg, rgba(247,248,245,0.95) 0%, rgba(225,230,220,0.82) 50%, rgba(139,145,135,0.62) 100%)',
+      textColor: '#111111',
       links: [{ label: 'Service History', ariaLabel: 'Service History', href: '/archive' }],
     },
   ]
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(123,209,43,0.08),transparent_32%),linear-gradient(180deg,#ffffff_0%,#f7f8f5_100%)] text-slate-900">
       <CardNav
         logoText="PraiseDB"
         logoAlt="PraiseDB"
         items={items}
-        baseColor="#fff"
-        menuColor="#111"
-        buttonBgColor="#111"
-        buttonTextColor="#fff"
+        baseColor="rgba(255,255,255,0.92)"
+        menuColor="#111111"
+        buttonBgColor="#111111"
+        buttonTextColor="#ffffff"
         buttonLabel="Home"
         onButtonClick={() => navigate('/')}
         onLogoClick={() => navigate('/')}
